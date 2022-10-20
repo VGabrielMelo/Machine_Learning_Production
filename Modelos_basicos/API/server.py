@@ -1,24 +1,25 @@
-import numpy as np
+'''Importações'''
 from flask import Flask, request, jsonify
 import pickle
 import os
 from pathlib import Path
 
 app = Flask(__name__)
-#Modelos treinados
-absolutepath = Path('Machine_Learning_Production/Modelos_Básicos/modelo/dados/modelo_preco_casas.pkl').absolute()
+'''Importação de Modelos treinados'''
+absolutepath = Path('Machine_Learning_Production/Modelos_basicos/modelo/dados/modelo_preco_casas.pkl').absolute()
 model_casas = pickle.load(open(r'{}'.format(absolutepath),'rb'))
 
-absolutepath = Path('Machine_Learning_Production/Modelos_Básicos/modelo/dados/modelo_diabetes.pkl').absolute()
+absolutepath = Path('Machine_Learning_Production/Modelos_basicos/modelo/dados/modelo_diabetes.pkl').absolute()
 model_diabetes = pickle.load(open(r'{}'.format(absolutepath),'rb'))
 
-
+'''Preparação para a entrada de dados'''
 colunas_diabetes = ['NUMERO_GRAVIDEZ','GLICOSE','PRESSAO_SANGUINEA','ESPESSURA_PELE_TRICEPS','INSULINA','IMC','FUNCAO_DIABETES','IDADE']
 colunas_preco_casas = ['tamanho','ano','garagem']
 
+'''Endpoints criados'''
 @app.route("/modelos")
 def verifica_api_online():
-  return "API ONLINE v1.0", 200
+  return "API DE DISPONIBILIZAÇÃO DE MODELOS DE FORMA ONLINE v1.0", 200
 
 @app.route('/modelos/diabetes/previsao', methods=['POST'])
 def predict():
